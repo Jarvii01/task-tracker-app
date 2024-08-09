@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Comment\CommentStoreController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskImageController;
+use App\Http\Controllers\Task\CreateController;
+use App\Http\Controllers\Task\IndexController;
+use App\Http\Controllers\Task\ShowController;
+use App\Http\Controllers\Task\StoreController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,10 +29,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-Route::get('/tasks/{task_id}', [TaskController::class, 'show'])->name('tasks.show');
+Route::prefix('/tasks')
+    ->as('tasks.')
+    ->group(function () {
+        Route::get('/', IndexController::class)->name('index');
+        Route::get('/create', CreateController::class)->name('create');
+        Route::get('/{task}', ShowController::class)->name('show');
+        Route::post('/', StoreController::class)->name('store');
+    });
 
+Route::post('tasks/{task}/comment', CommentStoreController::class)->name('comment.store');
 
 require __DIR__ . '/auth.php';

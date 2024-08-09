@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Task;
+namespace App\Http\Requests\Comment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,8 @@ class TaskRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'deadline' => ['required', 'date_format:d-m-Y', 'after_or_equal:today'],
+            'content' => '',
         ];
     }
 }

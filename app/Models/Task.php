@@ -9,22 +9,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
-    protected $guarded = false;
-    protected $table = 'tasks';
+
+    use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'deadline', 'user_id',
+        'title', 'description', 'deadline', 'user_id', 'area_id',
     ];
+
+    protected $with = ['user'];
 
     protected $casts = [
         'deadline' => 'datetime',
     ];
 
+    public function user(): BelongsTo
+    {
 
-    public function user(): BelongsTo{
         return $this->belongsTo(User::class);
+
     }
-    public function area(): BelongsTo{
+
+    public function area(): BelongsTo
+    {
         return $this->belongsTo(Area::class);
     }
 

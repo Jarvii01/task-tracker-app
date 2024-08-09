@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->id();
 
             $table->string('path');
+            $table->string('url');
 
             $table->foreignId('task_id')->nullable()->constrained('tasks');
 

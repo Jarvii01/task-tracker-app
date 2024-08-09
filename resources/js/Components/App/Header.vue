@@ -1,6 +1,6 @@
 <script setup>
-import Link from "@/Components/MyComp/MyLink.vue";
-import BlackButton from "@/Components/MyComp/BlackButton.vue";
+import Link from "@/Components/Links/Link.vue";
+import BlackButton from "@/Components/Buttons/Button.vue";
 
 </script>
 

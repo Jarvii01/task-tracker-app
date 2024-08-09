@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Task;
 
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class TaskRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +25,14 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
 
-        $id = $this->request->get('user_id');
+
         return [
-            'name' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'deadline' => ['required', 'date_format:d-m-Y', 'after_or_equal:today'],
-            'user_id' => $id,
-
-
+            'title' => 'required',
+            'description' => 'required',
+            'deadline' => 'required',
+            'images' => 'nullable|array',
+            'user_id.*' => 'nullable|integer|exists:users,id',
+            'area_id' => 'nullable|integer|exists:area,id',
         ];
     }
 }

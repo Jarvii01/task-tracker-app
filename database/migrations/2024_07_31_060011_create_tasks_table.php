@@ -15,13 +15,14 @@ return new class extends Migration {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('title');
             $table->string('description');
             $table->timestamp('deadline');
             $table->foreignId('user_id')->constrained('users');
 //            $table->foreignId('area_id')->constrained('areas');
             $table->enum('status', ['Выполнено', 'Не выполнено'])
-                ->default('Выполнено');
+                ->default('Не выполнено');
+
 
             $table->timestamps();
         });

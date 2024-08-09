@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Image extends Model
 {
-    protected $guarded = false;
-    protected $table = 'images';
 
     protected $fillable = [
-        'name'
+        'path', 'url', 'task_id'
     ];
+
+    public function task(): BelongsTo
+    {
+        return $this->belongsTo(Task::class);
+    }
 }

@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-import Link from "@/Components/MyComp/MyLink.vue";
-import BlackButton from "@/Components/MyComp/BlackButton.vue";
+
 
 </script>
