@@ -13,13 +13,13 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'deadline', 'user_id', 'area_id',
+        'title', 'description', 'deadline', 'user_id', 'area_id', 'status'
     ];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'area', 'image'];
 
     protected $casts = [
-        'deadline' => 'datetime',
+        'deadline' => 'datetime:Y-m-d'
     ];
 
     public function user(): BelongsTo

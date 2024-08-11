@@ -23,8 +23,9 @@ class TaskFactory extends Factory
             'title' => $this->faker->name,
             'description' => $this->faker->text,
             'deadline' => $this->faker->date(),
-//            'area_id' => Area::query()->get('id')->random(),
+            'area_id' => Area::query()->get('id')->random(),
             'user_id' => User::query()->get('id')->random(),
+            'created_at' => $this->faker->date(),
         ];
     }
 }

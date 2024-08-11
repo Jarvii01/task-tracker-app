@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Image\ImageResource;
+use App\Http\Resources\Task\TaskResource;
+use App\Http\Resources\User\UsersResource;
 use App\Models\Image;
 use App\Models\Task;
 use App\Models\User;
@@ -10,18 +13,16 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function __invoke(Task $task)
+    public function __invoke()
     {
-        $users = User::all();
+        $tasks = TaskResource::collection(Task::all());
 
-        $tasks = Task::all();
+        $images = ImageResource::collection(Image::all());
 
-        $images = Image::all();
 
         return inertia('Task/Index', [
-            'users' => $users,
-            'images' => $images,
             'tasks' => $tasks,
+            'images' => $images,
         ]);
     }
 }

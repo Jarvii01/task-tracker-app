@@ -5,7 +5,8 @@ const props = defineProps({
     comment: Object
 })
 
-console.log(props.comment)
+console.log(props.comment.created_at);
+
 
 </script>
 
@@ -15,7 +16,7 @@ console.log(props.comment)
         <div class="w-full text-left">
             <div class="mb-2 flex flex-col justify-between text-gray-600 sm:flex-row">
                 <h3 class="font-medium">{{comment.user.name}} </h3>
-                <time class="text-xs" datetime="2022-11-13T20:00Z">{{comment.created_at}}</time>
+                <time class="text-xs">{{comment.created_at}}</time>
             </div>
                 <p class="text-sm">{{ comment.content }}</p>
         </div>

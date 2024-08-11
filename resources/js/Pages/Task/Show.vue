@@ -1,31 +1,33 @@
-<script setup>
+<script>
 import Header from "@/Components/App/Header.vue";
 import Footer from "@/Components/App/Footer.vue";
-import {router} from "@inertiajs/vue3";
 import CommentForm from "@/Components/TaskShowPage/CommentForm.vue";
 import ShowTaskCard from "@/Components/TaskShowPage/ShowTaskCard.vue";
 import Comments from "@/Components/TaskShowPage/Comments.vue";
 
+export default {
+    components: {
+        Header, Footer, CommentForm, Comments, ShowTaskCard
+    },
 
-const props = defineProps({
-    task: Object,
-    comments: Object,
-    images: Object,
-})
-
-console.log(props.images)
+    props: {
+        task: Object,
+        comments: Object,
+        images: Object,
+    }
+}
 
 </script>
 
 <template>
     <Header/>
 
-    <ShowTaskCard :task="props.task" :images="props.images"/>
+    <ShowTaskCard :task="task" :images="images"/>
 
-    <CommentForm :task="props.task"/>
+    <CommentForm :task="task"/>
 
     <div>
-        <Comments v-bind:comment="props.comments"/>
+        <Comments v-bind:comment="comments"/>
     </div>
 
     <Footer/>

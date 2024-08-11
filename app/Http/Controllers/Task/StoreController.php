@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\StoreRequest;
+use App\Http\Resources\Task\TaskResource;
 use App\Models\Area;
 use App\Models\Image;
 use App\Models\Task;
@@ -18,21 +19,10 @@ class StoreController extends Controller
     {
 
         $data = $request->validated();
-        $user = $task;
-        dd($user);
-
-
-        $user = User::find(3);
-        $area = Area::find(1);
-        $data['user_id'] = $user->id;
-        $data['area_id'] = $area->id;
 
         $images = $data['images'];
 
-        dd($data);
-
-        $task = Task::query()->create($data);
-
+        $task = new TaskResource (Task::query()->create($data));
         foreach ($images as $image) {
             $name = md5(Carbon::now() . '_' . $image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
             $filePath = Storage::disk('public')->putFileAs('/images', $image, $name);
@@ -43,7 +33,6 @@ class StoreController extends Controller
                 'task_id' => $task->id,
             ]);
         }
-
 
         return to_route('tasks.index');
     }

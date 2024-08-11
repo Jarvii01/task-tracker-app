@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Comment;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class UsersResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,14 +14,9 @@ class CommentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
-        dd($this->created_at);
         return [
             'id' => $this->id,
-            'content' => $this->content,
-            'date' => $this->date,
-            'user' => $this->user,
-            'created_at' => $this->created_at->diffForHumans(),
+            'name' => $this->name,
         ];
     }
 }

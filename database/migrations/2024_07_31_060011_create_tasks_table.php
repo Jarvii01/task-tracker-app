@@ -18,8 +18,17 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description');
             $table->timestamp('deadline');
-            $table->foreignId('user_id')->constrained('users');
-//            $table->foreignId('area_id')->constrained('areas');
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignId('area_id')
+                ->constrained('areas')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
             $table->enum('status', ['Выполнено', 'Не выполнено'])
                 ->default('Не выполнено');
 

@@ -6,26 +6,42 @@ import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 import Dropzone from "dropzone";
+import {data} from "autoprefixer";
 
 export default {
     props: {
+        task: Object,
         users: Object,
-        areas: Object
+        areas: Object,
+        images: Object,
     },
+
     components: {
         Footer,
         Header
     },
     data() {
+        // this.images.forEach(images => {
+        //     let file = {name: "Filename 2", size: 12345};
+        //     // this.dropzone.displayExistingFile(file, images.url);
+        //
+        // })
+        console.log(this.images);
+        console.log(this.dropzone);
+
         return {
-            title: null,
-            description: null,
+            id: this.task.id,
+            title: this.task.title,
+            description: this.task.description,
+            deadline: this.task.deadline,
+            area_id: this.task.area_id,
+            user_id: this.task.user_id,
+            status: this.task.status,
             dropzone: null,
-            deadline: null,
-            area_id: null,
-            user_id: null,
+
 
         }
+
     },
 
     mounted() {
@@ -33,9 +49,10 @@ export default {
             url: '/tasks',
             autoProcessQueue: false,
         })
+        // console.log(this.dropzone)
     },
     methods: {
-        store() {
+        update() {
             const data = new FormData()
             const files = this.dropzone.getAcceptedFiles()
             files.forEach(file => {
@@ -46,12 +63,21 @@ export default {
             data.append('deadline', this.deadline)
             data.append('area_id', this.area_id)
             data.append('user_id', this.user_id)
-            router.post('/tasks', data)
+            data.append('_method', 'PATCH')
+            router.post(`/tasks/${this.id}`, data, {})
 
             console.log(data)
+
+            // this.$inertia.patch(`/tasks/${this.id}`, {
+            //
+            //     title: this.title,
+            //     description: this.description,
+            //     deadline: this.deadline,
+            //     area_id: this.area_id,
+            //     user_id: this.user_id,
+            // })
         }
     },
-
 
 }
 </script>
@@ -59,9 +85,9 @@ export default {
 <template>
     <Header/>
 
-    <h1 class="mx-auto text-3xl pt-5 text-center font-bold font" >Создание Задачи</h1>
+    <h1 class="mx-auto text-3xl pt-5 text-center font-bold font">Редактирование Задачи</h1>
     <div class="rounded-lg shadow-xl">
-        <form @submit.prevent="store" method="post" class="p-2 flex flex-col">
+        <form @submit.prevent="update" class="p-2 flex flex-col">
             <div class="flex flex-col p-6 -mb-6">
                 <label for=title class="mb-4 font-semibold">Название задачи:</label>
                 <input v-model="title" type="text" id="title" placeholder="Название задачи"
@@ -98,14 +124,20 @@ export default {
                 </select>
             </div>
 
+            <div class="flex flex-col p-6 -mb-6">
+                <label for="status" class="mb-4 font-semibold">Статус</label>
+                <p id="status"> {{ task.status }}</p>
+            </div>
+
             <div class="w-1/4 mx-auto">
+
                 <div ref="dropzone" class="cursor-pointer p-5 text-center bg-gray-800 text-white">
                     Загрузить изображение
                 </div>
             </div>
 
 
-            <button type="submit">Создать</button>
+            <button type="submit">Сохранить</button>
 
         </form>
 

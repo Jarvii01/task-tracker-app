@@ -16,6 +16,7 @@ class ShowController extends Controller
         $images = $task->image()->get();
 
 
+
         return inertia('Task/Show', [
                 'images' => $images,
                 'task' => $task,

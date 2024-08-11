@@ -16,16 +16,16 @@ class TaskResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-
         return [
             'id' => $this->id,
-            'title' => $this->tilte,
+            'title' => $this->title,
             'description' => $this->description,
             'deadline' => $this->deadline,
-            'user_id' => auth()->id(),
+            'user_id' => $this->user,
             'area_id' => $this->area,
-            'status' => $this->status,
-            'images' => ImageResource::collection($this->images),
+            'status' => $this->status_item,
+            'images' => new ImageResource($this->images),
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }

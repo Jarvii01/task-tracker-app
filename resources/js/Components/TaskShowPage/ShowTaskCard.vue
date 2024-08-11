@@ -1,12 +1,22 @@
-<script setup>
-const props = defineProps({
-    task: Object,
-    images: Object
-})
+<script>
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Link from "@/Components/Links/Link.vue";
 
-console.log(props.task)
-console.log(props.images)
+export default {
+    components:{
+        Link, PrimaryButton
+    },
+    props: [
+        'task',
+        'images'
+    ],
+    methods: {
+        deleteTask(id) {
+            this.$inertia.delete(`/tasks/${id}`)
+        }
+    }
 
+}
 
 </script>
 
@@ -15,38 +25,37 @@ console.log(props.images)
         <div
             class="relative flex flex-col mt-6 text-gray-700 bg-white drop-shadow-lg bg-clip-border rounded-3xl w-full">
             <div class="flex">
-                <!--                <div-->
-                <!--                    class="relative flex w-1/4  h-56 mx-3 mt-3 overflow-hidden text-white shadow-lg bg-clip-border rounded-2xl bg-blue-gray-500 shadow-blue-gray-500/40">-->
-                <!--                    <img-->
-                <!--                        src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"-->
-                <!--                        alt="card-image"/>-->
-                <!--                </div>-->
                 <div
                     class="relative flex w-1/4  h-56 mx-3 mt-3 overflow-hidden text-white shadow-lg bg-clip-border rounded-2xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                    <div v-for="image in props.images">
+                    <div v-for="image in images">
                         <img :src="image.url">
                     </div>
 
                 </div>
-                <div class="w-3/4 p-6" v-if="props.task">
+                <div class="w-3/4 p-6" v-if="task">
                     <h5 class="block mb-2 font-poppins text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                        Название задачи: {{ props.task.title }}
+                        Название задачи: {{ task.title }}
                     </h5>
                     <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
-                        Исполнитель: {{ props.task.user.name }}
+                        Исполнитель: {{ task.user.name }}
                     </p>
                     <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
-                        Описание: {{ props.task.description }}
+                        Описание: {{ task.description }}
                     </p>
                     <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
-                        Дэдлайн: {{ props.task.deadline }}
+                        Дэдлайн: {{ task.deadline }}
                     </p>
                     <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
-                        Локация:
+                        Локация: {{ task.area.title }}
                     </p>
-                    <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
-                        Статус: {{ props.task.status }}
-                    </p>
+                    <div class="flex flex-row justify-between ">
+                        <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
+                            Статус: {{ task.status }}
+                        </p>
+                        <Link :href="route('tasks.edit', task.id )">Редактировать</Link>
+                        <Link @click="deleteTask(task.id)">Удалить</Link>
+                    </div>
+
                 </div>
 
             </div>
