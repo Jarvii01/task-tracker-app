@@ -27,8 +27,10 @@
         "filepond": "^4.31.1",
         "filepond-plugin-file-validate-type": "^1.2.9",
         "filepond-plugin-image-preview": "^4.6.12",
+        "laravel-permission-to-vuejs": "^3.0.7",
         "source-map-js": "^1.2.0",
         "vue-filepond": "^7.0.4",
+        "vue-router": "^4.4.3",
         "vue3-dropzone": "^2.2.1"
     }
 }

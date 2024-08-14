@@ -8,19 +8,21 @@ export default {
     props: {
         tasks: Object,
         images: Object,
+        hasAdmin: Boolean,
     }
 }
 </script>
 
 <template>
-    <Header/>
+    <Header v-bind:hasAdmin/>
 
 
     <h1 class="mx-auto text-3xl pt-5 text-center font-bold font">Все Задачи</h1>
 
-    <div class="w-auto pt-2 grid grid-cols-3  place-items-center">
-        <TaskCard v-for="task in tasks" v-bind:task v-bind:images/>
+    <div class="place-items-center pt-2 pb-12 grid grid-cols-3  ">
+        <TaskCard v-for="task in tasks" :task :images :hasAdmin/>
     </div>
+
 
     <Footer/>
 </template>

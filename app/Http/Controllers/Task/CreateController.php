@@ -12,6 +12,7 @@ class CreateController extends Controller
 {
     public function __invoke(Task $task)
     {
+
         $users = User::all();
 
         $areas = Area::all();

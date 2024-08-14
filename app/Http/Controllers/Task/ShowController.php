@@ -20,7 +20,8 @@ class ShowController extends Controller
         return inertia('Task/Show', [
                 'images' => $images,
                 'task' => $task,
-                'comments' => $comments
+                'comments' => $comments,
+                'hasAdmin' => auth()->user()->hasRole('admin'),
             ]
         );
     }

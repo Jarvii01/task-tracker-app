@@ -26,6 +26,7 @@ class TaskResource extends JsonResource
             'status' => $this->status_item,
             'images' => new ImageResource($this->images),
             'created_at' => $this->created_at->diffForHumans(),
+            'is_owner' => $this->is_owner,
         ];
     }
 }

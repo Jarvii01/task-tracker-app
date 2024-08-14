@@ -32,20 +32,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('/tasks')
+Route::middleware(['role:admin'])
+    ->prefix('/tasks')
     ->as('tasks.')
     ->group(function () {
-        Route::get('/', IndexController::class)->name('index');
-
         Route::get('/create', CreateController::class)->name('create');
         Route::post('/', StoreController::class)->name('store');
-
-        Route::get('/{task}', ShowController::class)->name('show');
 
         Route::get('/{task}/edit', EditController::class)->name('edit');
         Route::patch('/{task}', UpdateController::class)->name('update');
 
         Route::delete('/{task}', DeleteController::class)->name('delete');
+    });
+Route::prefix('/tasks')
+    ->as('tasks.')
+    ->group(function () {
+        Route::get('/', IndexController::class)->name('index');
+        Route::get('/{task}', ShowController::class)->name('show');
     });
 
 Route::post('tasks/{task}/comment', CommentStoreController::class)->name('comment.store');

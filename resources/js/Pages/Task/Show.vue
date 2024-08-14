@@ -14,15 +14,17 @@ export default {
         task: Object,
         comments: Object,
         images: Object,
+        hasAdmin: Boolean,
+
     }
 }
 
 </script>
 
 <template>
-    <Header/>
+    <Header v-bind:hasAdmin/>
 
-    <ShowTaskCard :task="task" :images="images"/>
+    <ShowTaskCard :task="task" :images="images" v-bind:hasAdmin/>
 
     <CommentForm :task="task"/>
 

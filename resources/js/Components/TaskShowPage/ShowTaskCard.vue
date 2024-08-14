@@ -8,7 +8,8 @@ export default {
     },
     props: [
         'task',
-        'images'
+        'images',
+        'hasAdmin'
     ],
     methods: {
         deleteTask(id) {
@@ -52,8 +53,9 @@ export default {
                         <p class="block font-poppins text-base antialiased font-light leading-relaxed text-inherit">
                             Статус: {{ task.status }}
                         </p>
-                        <Link :href="route('tasks.edit', task.id )">Редактировать</Link>
-                        <Link @click="deleteTask(task.id)">Удалить</Link>
+
+                        <Link v-if="hasAdmin" :href="route('tasks.edit', task.id )">Редактировать</Link>
+                        <Link v-if="hasAdmin" @click="deleteTask(task.id)">Удалить</Link>
                     </div>
 
                 </div>

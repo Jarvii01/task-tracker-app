@@ -22,6 +22,11 @@ class Task extends Model
         'deadline' => 'datetime:Y-m-d'
     ];
 
+    public function getIsOwnerAttribute()
+    {
+        return (int)$this->user_id === (int)auth()->id();
+    }
+
     public function user(): BelongsTo
     {
 

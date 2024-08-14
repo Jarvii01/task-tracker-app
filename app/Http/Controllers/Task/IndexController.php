@@ -10,11 +10,13 @@ use App\Models\Image;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class IndexController extends Controller
 {
-    public function __invoke()
+    public function __invoke(User $user)
     {
+
         $tasks = TaskResource::collection(Task::all());
 
         $images = ImageResource::collection(Image::all());
@@ -23,6 +25,7 @@ class IndexController extends Controller
         return inertia('Task/Index', [
             'tasks' => $tasks,
             'images' => $images,
+            'hasAdmin' => auth()->user()->hasRole('admin'),
         ]);
     }
 }
